@@ -1,0 +1,36 @@
+{
+  "name": "web-monitoring-app",
+  "version": "1.0.0",
+  "description": "Web Monitoring of web page.",
+  "main": "web-monitoring.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "bin": {
+    "web-monitoring-app": "web-monitoring.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoniomuso/web-monitoring-app.git"
+  },
+  "keywords": [
+    "monitor",
+    "monitoring",
+    "web",
+    "page",
+    "allert"
+  ],
+  "author": "AntonioMusolino (https://github.com/antoniomuso)",
+  "license": "SEE LICENSE IN LICENSE",
+  "preferGlobal": true,
+  "devDependencies": {
+    "standard": "^10.0.3"
+  },
+  "bugs": {
+    "url": "https://github.com/antoniomuso/web-monitoring-app/issues"
+  },
+  "homepage": "https://github.com/antoniomuso/web-monitoring-app#readme"
+}
