@@ -32,5 +32,16 @@
   "bugs": {
     "url": "https://github.com/antoniomuso/web-monitoring-app/issues"
   },
-  "homepage": "https://github.com/antoniomuso/web-monitoring-app#readme"
+  "homepage": "https://github.com/antoniomuso/web-monitoring-app#readme",
+  "dependencies": {
+    "command-line-args": "^5.0.1",
+    "node_leven_distance": "^1.0.3",
+    "nodemailer": "^4.4.2",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5",
+    "sanitize-html": "^1.17.0",
+    "valid-url": "^1.0.9",
+    "web-monitoring": "^2.0.0",
+    "worker-nodes": "^1.6.0"
+  }
 }
