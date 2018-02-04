@@ -1,8 +1,10 @@
 # web-monitoring-app
+
+[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard) 
+
 > Web-monitoring-app is a small web page monitoring written in node.js, you can monitor changing of a web page. Compatible with Node v8.4.0 and above. it uses repo [web-monitoring](https://github.com/antoniomuso/web-monitoring)
 
 
-[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard) 
 
 ## How to install
 `npm install web-monitoring -g`
