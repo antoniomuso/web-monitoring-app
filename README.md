@@ -31,3 +31,13 @@ Without command -loop, the program stop at first page change
 ```
 web-monitoring-app http://google.com -p 0.2
 ```
+## Authors
+
+* **Antonio Musolino** - [antoniomuso](https://github.com/antoniomuso)
+
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
