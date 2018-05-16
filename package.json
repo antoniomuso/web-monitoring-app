@@ -1,6 +1,6 @@
 {
   "name": "web-monitoring-app",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Web Monitoring of web page.",
   "main": "web-monitoring.js",
   "directories": {
