@@ -1,4 +1,4 @@
-# web-monitoring-app
+r# web-monitoring-app
 
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard) 
 
@@ -15,16 +15,16 @@ web-monitoring-app http://google.com
 ```
 if you want to receive alert on email, use:
 ```
-web-monitoring-app http://google.com -e myname@host.com passwordmyname myname@host.com
+web-monitoring-app http://google.com -e myname@host.com passwordmyname reciver@host.com
 ```
 Below are more specific options
 ```
 web-monitoring-app [uri] -l [lapse of control] -p [percentage of page changing] -t [number of test for calculate automatic percentage of page changing] -e [email sender] [password sender] [email receiver]
 web-monitoring-app http://google.com -l 5000 -p 0.1
 or 
-web-monitoring-app http://google.com -l 5000 -p 0.1 -e myname@host.com passwordmyname myname@host.com
+web-monitoring-app http://google.com -l 5000 -p 0.1 -e myname@host.com passwordmyname reciver@host.com
 or
-web-monitoring-app http://google.com -l 5000 -p 0.1 -e myname@host.com passwordmyname myname@host.com -loop
+web-monitoring-app http://google.com -l 5000 -p 0.1 -e myname@host.com passwordmyname reciver@host.com -loop
 Without command -loop, the program stop at first page change
 ```
 **I recommend setting manually percentage of page change with dynamic pages, 0 is the minimum value, 1 is the maximum value**
