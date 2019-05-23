@@ -41,8 +41,10 @@ Without command -loop, the program stop at first page change
 ```
 **If you like to send you a notification via Telegram**
 ```
-web-monitoring-app [uri] -t
+web-monitoring-app [uri] -t 123456789:ABCdefOGH1I2Jkl_3nmOp4Q5rstUVwXy6-z 87654321
 ```
+Note: _Use your **bot id without "bot" prefix**! (123456789 instead of bot123456789)_
+Pleace have a look into the [Telegram Bot API](https://core.telegram.org/api#bot-api) how to create a bot and find your chat id.
 
 **I recommend setting manually percentage of page change with dynamic pages, 0 is the minimum value, 1 is the maximum value**
 ```
