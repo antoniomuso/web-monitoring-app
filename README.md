@@ -13,6 +13,18 @@ If you want to monitor a page with alert on terminal, use:
 ```
 web-monitoring-app http://google.com
 ```
+**Parameter overview**
+
+| Option       | Shortcut | Type                   | Default | Description                                | Optional |
+|--------------|----------|------------------------|---------|--------------------------------------------|----------|
+| uri          | u        | String                 |         | [URI] to monitor                           | no       |
+| email        | e        | [String String String] |         | [yourEmail] [yourPassword] [receiverEmail] | yes      |
+| telegram     | t        | [String String]        |         | [yourBotIdWithoutBotPrefix] [yourChatId]   | yes      |
+| labse        | l        | Number                 | 5000    |                                            | yes      |
+| percentage   | p        | Number                 |         | percentage of page change (min 0, max 1)   | yes      |
+| loop         | o        | Boolean                | false   | continue after change detection            | yes      |
+| NumberOfTest | n        | Number                 | 10      | number of tests at the beginning           | yes      |
+
 if you want to receive alert on email, use:
 ```
 web-monitoring-app http://google.com -e myname@host.com passwordmyname reciver@host.com
@@ -27,6 +39,11 @@ or
 web-monitoring-app http://google.com -l 5000 -p 0.1 -e myname@host.com passwordmyname reciver@host.com -loop
 Without command -loop, the program stop at first page change
 ```
+**If you like to send you a notification via Telegram**
+```
+web-monitoring-app [uri] -t
+```
+
 **I recommend setting manually percentage of page change with dynamic pages, 0 is the minimum value, 1 is the maximum value**
 ```
 web-monitoring-app http://google.com -p 0.2
