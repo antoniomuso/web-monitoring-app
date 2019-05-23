@@ -6,6 +6,7 @@ const vuri = require('valid-url')
 
 const commandLineArgs = require('command-line-args')
 const nodemailer = require('nodemailer')
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const os = require('os')
 // Use only a core for windows os
 var bp = os.type() !== 'Windows_NT'
@@ -15,10 +16,11 @@ var bp = os.type() !== 'Windows_NT'
 const optionDefinitionsArgs = [
     { name: 'uri', alias: 'u', type: String, defaultOption: true },
     { name: 'email', alias: 'e', multiple: true, type: String },
+    { name: 'telegram', alias: 't', multiple: true, type: String },
     { name: 'lapse', alias: 'l', type: Number, defaultValue: 5000 },
     { name: 'percentage', alias: 'p', type: Number },
     { name: 'loop', alias: 'o', type: Boolean, defaultValue: false },
-    { name: 'NumberOfTest', alias: 't', type: Number, defaultValue: 10 }
+    { name: 'NumberOfTest', alias: 'n', type: Number, defaultValue: 10 }
 ]
 
 var values = commandLineArgs(optionDefinitionsArgs)
@@ -47,6 +49,13 @@ if (values.email && values.email.length === 3) {
     text: `${values.uri} was change`
   }
 }
+// telegram test message
+if (values.telegram && values.telegram.length === 2) {
+                  let telegramUrl = `https://api.telegram.org/bot${values.telegram[0]}/sendMessage?chat_id=${values.telegram[1]}&text=test%20for%20${values.uri}%20monitoring`;
+                  let xhr = new XMLHttpRequest();
+                  xhr.open('GET', telegramUrl+1);
+                  xhr.send();
+                }
 if (values.NumberOfTest <= 0) throw new Error('nTest must be >0')
 if (!values.uri) throw new URIError('Uri is obligatory')
     ; (async function () {
@@ -70,7 +79,15 @@ if (!values.uri) throw new URIError('Uri is obligatory')
                   }
                 })
               } else {
-                console.log(`page ${uri} chaged`)
+                console.log(`page ${uri} changed`)
+
+                // send telegram msg
+                if (values.telegram && values.telegram.length === 2) {
+                  let telegramUrl = `https://api.telegram.org/bot${values.telegram[0]}/sendMessage?chat_id=${values.telegram[1]}&text=PAGE%20CHANGED`;
+                  let xhrAlert = new XMLHttpRequest();
+                  xhrAlert.open('GET', telegramUrl);
+                  xhrAlert.send();
+                }
               }
               if (!values.loop) wp.stop()
             })

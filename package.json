@@ -42,6 +42,7 @@
     "sanitize-html": "^1.17.0",
     "valid-url": "^1.0.9",
     "web-monitoring": "^2.1.0",
-    "worker-nodes": "^1.6.0"
+    "worker-nodes": "^1.6.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }
