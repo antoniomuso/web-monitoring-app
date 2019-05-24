@@ -35,6 +35,7 @@
   "homepage": "https://github.com/antoniomuso/web-monitoring-app#readme",
   "dependencies": {
     "command-line-args": "^5.0.1",
+    "cross-fetch": "^3.0.2",
     "leven": "^2.1.0",
     "nodemailer": "^4.4.2",
     "request": "^2.83.0",
