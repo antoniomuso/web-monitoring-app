@@ -6,21 +6,21 @@ const vuri = require('valid-url')
 
 const commandLineArgs = require('command-line-args')
 const nodemailer = require('nodemailer')
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const fetch = require('cross-fetch')
 const os = require('os')
 // Use only a core for windows os
 var bp = os.type() !== 'Windows_NT'
-   ? require('./lib/worker_launcher_test.js')
-   : require('./lib/test_percentage.js')
+  ? require('./lib/worker_launcher_test.js')
+  : require('./lib/test_percentage.js')
 
 const optionDefinitionsArgs = [
-    { name: 'uri', alias: 'u', type: String, defaultOption: true },
-    { name: 'email', alias: 'e', multiple: true, type: String },
-    { name: 'telegram', alias: 't', multiple: true, type: String },
-    { name: 'lapse', alias: 'l', type: Number, defaultValue: 5000 },
-    { name: 'percentage', alias: 'p', type: Number },
-    { name: 'loop', alias: 'o', type: Boolean, defaultValue: false },
-    { name: 'NumberOfTest', alias: 'n', type: Number, defaultValue: 10 }
+  { name: 'uri', alias: 'u', type: String, defaultOption: true },
+  { name: 'email', alias: 'e', multiple: true, type: String },
+  { name: 'telegram', alias: 't', multiple: true, type: String },
+  { name: 'lapse', alias: 'l', type: Number, defaultValue: 5000 },
+  { name: 'percentage', alias: 'p', type: Number },
+  { name: 'loop', alias: 'o', type: Boolean, defaultValue: false },
+  { name: 'NumberOfTest', alias: 'n', type: Number, defaultValue: 10 }
 ]
 
 var values = commandLineArgs(optionDefinitionsArgs)
@@ -51,52 +51,65 @@ if (values.email && values.email.length === 3) {
 }
 // telegram test message
 if (values.telegram && values.telegram.length === 2) {
-                  let telegramUrl = `https://api.telegram.org/bot${values.telegram[0]}/sendMessage?chat_id=${values.telegram[1]}&text=test%20for%20${values.uri}%20monitoring`;
-                  let xhr = new XMLHttpRequest();
-                  xhr.open('GET', telegramUrl+1);
-                  xhr.send();
-                }
-if (values.NumberOfTest <= 0) throw new Error('nTest must be >0')
-if (!values.uri) throw new URIError('Uri is obligatory')
-    ; (async function () {
-      var options = {
-        lapse: values.lapse,
-        percentageDiff: values.percentage
-                ? values.percentage
-                : await bp(values.NumberOfTest, values.uri) // if whileControl exist this will not use
+  let text = `You are monitoring ${values.uri} page`
+  let telegramUrl = `https://api.telegram.org/bot${values.telegram[0]}/sendMessage?chat_id=${values.telegram[1]}&text=${text}`
+
+  fetch(telegramUrl)
+    .then(res => {
+      if (res.status >= 400) {
+        throw new Error('Bad response from telegram server')
       }
-
-      let wp = wm.monitor(values.uri, options)
-            .start()
-            .on('start', (uri) => console.log(`monitoring of '${uri}' start`))
-            .on('alert', (uri, page) => {
-              if (values.email && values.email.length === 3) {
-                transporter.sendMail(mailOptions, function (error, info) {
-                  if (error) {
-                    console.log(error)
-                  } else {
-                    console.log('Email sent: ' + info.response)
-                  }
-                })
-              } else {
-                console.log(`page ${uri} changed`)
-
-                // send telegram msg
-                if (values.telegram && values.telegram.length === 2) {
-                  let telegramUrl = `https://api.telegram.org/bot${values.telegram[0]}/sendMessage?chat_id=${values.telegram[1]}&text=PAGE%20CHANGED`;
-                  let xhrAlert = new XMLHttpRequest();
-                  xhrAlert.open('GET', telegramUrl);
-                  xhrAlert.send();
-                }
-              }
-              if (!values.loop) wp.stop()
-            })
-            .on('error', (error) => {
-              console.error(error)
-              // I Return to monitoring
-              wp.stop()
-              wp.start()
-            })
-    })().catch((err) => {
-      throw new Error(err)
+    }).catch((err) => {
+      console.log(err)
     })
+}
+if (values.NumberOfTest <= 0) throw new Error('nTest must be >0')
+if (!values.uri) throw new URIError('Uri is mondatory')
+  ; (async function () {
+    var options = {
+      lapse: values.lapse,
+      percentageDiff: values.percentage
+        ? values.percentage
+        : await bp(values.NumberOfTest, values.uri) // if whileControl exist this will not use
+    }
+
+    let wp = wm.monitor(values.uri, options)
+      .start()
+      .on('start', (uri) => console.log(`monitoring of '${uri}' start`))
+      .on('alert', (uri, page) => {
+        if (values.email && values.email.length === 3) {
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error)
+            } else {
+              console.log('Email sent: ' + info.response)
+            }
+          })
+        } else {
+          console.log(`page ${uri} changed`)
+
+          // send telegram msg
+          if (values.telegram && values.telegram.length === 2) {
+            let text = `PAGE ${values.uri} CHANGED`
+            let telegramUrl = `https://api.telegram.org/bot${values.telegram[0]}/sendMessage?chat_id=${values.telegram[1]}&text=${text}`
+            fetch(telegramUrl)
+              .then(res => {
+                if (res.status >= 400) {
+                  throw new Error('Bad response from telegram server')
+                }
+              }).catch((err) => {
+                console.log(err)
+              })
+          }
+        }
+        if (!values.loop) wp.stop()
+      })
+      .on('error', (error) => {
+        console.error(error)
+        // I Return to monitoring
+        wp.stop()
+        wp.start()
+      })
+  })().catch((err) => {
+    throw new Error(err)
+  })
