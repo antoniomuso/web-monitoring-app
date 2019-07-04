@@ -10,7 +10,9 @@
     "web-monitoring-app": "web-monitoring.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -43,6 +45,8 @@
     "sanitize-html": "^1.17.0",
     "valid-url": "^1.0.9",
     "web-monitoring": "^2.1.0",
-    "worker-nodes": "^1.6.0"
-  }
+    "worker-nodes": "^1.6.0",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
